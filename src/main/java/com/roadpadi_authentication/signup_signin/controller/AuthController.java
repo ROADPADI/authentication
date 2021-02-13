@@ -21,6 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -61,7 +62,7 @@ public class AuthController {
 
     }
 
-    @PostMapping("/signup")
+    @PostMapping("/generic_user_signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signupRequest) {
         if (userRepository.existsByUsername(signupRequest.getUsername())){
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken, try something different!"));
@@ -169,4 +170,59 @@ public class AuthController {
     }
 
 
+    @PostMapping("/transport_company_signup")
+    public ResponseEntity<?> registerTransportCompany(@Valid @RequestBody @NotNull SignupRequest signupRequest) {
+        if(userRepository.existsByEmail(signupRequest.getEmail())){
+            return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already existing in our system, try to login instead!"));
+        }
+
+        User user = new User(signupRequest.getUsername(), signupRequest.getEmail(), passwordEncoder.encode(signupRequest.getPassword()));
+
+        Set<String> stringRoles = signupRequest.getRole();
+        Set<Role> roles = new HashSet<>();
+
+        Role userRole;
+        if(stringRoles == null){
+            userRole = roleRepository.findByRoleName(RoleEnum.ROLE_TRANSPORT_COMPANY).
+                    orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+        }else {
+            userRole = roleRepository.findByRoleName(RoleEnum.ROLE_USER)
+                    .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
+        }
+        roles.add(userRole);
+
+        user.setRoles(roles);
+        userRepository.save(user);
+
+        return ResponseEntity.ok(new MessageResponse("User registered successfully"));
+
+    }
+
+    @PostMapping("/fuel_station_signup")
+    public ResponseEntity<?> registerFuelStation(@Valid @RequestBody SignupRequest signupRequest) {
+        if(userRepository.existsByEmail(signupRequest.getEmail())){
+            return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already existing in our system, try to login instead!"));
+        }
+
+        User user = new User(signupRequest.getUsername(), signupRequest.getEmail(), passwordEncoder.encode(signupRequest.getPassword()));
+
+        Set<String> stringRoles = signupRequest.getRole();
+        Set<Role> roles = new HashSet<>();
+
+        Role userRole;
+        if(stringRoles == null){
+            userRole = roleRepository.findByRoleName(RoleEnum.ROLE_FUEL_STATION).
+                    orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+        }else {
+            userRole = roleRepository.findByRoleName(RoleEnum.ROLE_USER)
+                    .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
+        }
+        roles.add(userRole);
+
+        user.setRoles(roles);
+        userRepository.save(user);
+
+        return ResponseEntity.ok(new MessageResponse("User registered successfully"));
+
+    }
 }
