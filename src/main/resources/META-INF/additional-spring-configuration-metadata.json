@@ -1,0 +1,14 @@
+{
+  "properties": [
+    {
+      "name": "roadpadi_authentication.app.jwtSecret",
+      "type": "java.lang.String",
+      "description": "Description for roadpadi_authentication.app.jwtSecret."
+    },
+    {
+      "name": "roadpadi_authentication.app.jwtExpirationMs",
+      "type": "java.lang.String",
+      "description": "Description for roadpadi_authentication.app.jwtExpirationMs."
+    }
+  ]
+}
