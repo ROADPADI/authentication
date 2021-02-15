@@ -13,32 +13,35 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "users_id")
     private Long id;
 
     @NotBlank
-    @Size(max = 20)
+//    @Size(max = 20)
+    @Column(name = "users_username")
     private String username;
 
     @NotBlank
-    @Size(max = 100)
+//    @Size(max = 100)
     @Email
+    @Column(name = "users_email")
     private String email;
 
     @NotBlank
-    @Size(max = 50)
-    private String userPassword;
+//    @Size(max = 200)
+    @Column(name = "users_password")
+    private String usersPassword;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "users_has_roles", joinColumns = @JoinColumn(name = "user_id"),
-                inverseJoinColumns = @JoinColumn(name = "roles_id"))
+//    @JoinTable(name = "users_has_roles")
     private Set<Role> roles = new HashSet<>();
 
     public User(){}
 
-    public User(String username, String email, String userPassword){
+    public User(String username, String email, String usersPassword){
         this.username = username;
         this.email = email;
-        this.userPassword = userPassword;
+        this.usersPassword = usersPassword;
     }
 
     public Long getId() {
@@ -65,12 +68,12 @@ public class User {
         this.email = email;
     }
 
-    public String getUserPassword() {
-        return userPassword;
+    public String getUsersPassword() {
+        return usersPassword;
     }
 
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
+    public void setUserPassword(String usersPassword) {
+        this.usersPassword = usersPassword;
     }
 
     public Set<Role> getRoles() {

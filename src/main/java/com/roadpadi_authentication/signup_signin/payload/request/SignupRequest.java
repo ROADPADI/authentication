@@ -8,18 +8,18 @@ import java.util.Set;
 public class SignupRequest {
 
     @NotBlank
-    @Size(max =20)
+//    @Size(max =20)
     private String username;
 
     @NotBlank
-    @Size(max = 50)
+//    @Size(max = 50)
     @Email
     private String email;
 
     private Set<String > role;
 
     @NotBlank
-    @Size(min = 8, max =40)
+//    @Size(min = 8, max =200)
     private String password;
 
 

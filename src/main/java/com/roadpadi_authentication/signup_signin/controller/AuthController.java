@@ -172,7 +172,7 @@ public class AuthController {
 
     @PostMapping("/transport_company_signup")
     public ResponseEntity<?> registerTransportCompany(@Valid @RequestBody SignupRequest signupRequest) {
-        if(userRepository.existsByEmail(signupRequest.getEmail())){
+        if(userRepository.existsByUsername(signupRequest.getUsername())){
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already existing in our system, try to login instead!"));
         }
 
@@ -181,15 +181,19 @@ public class AuthController {
         Set<String> stringRoles = signupRequest.getRole();
         Set<Role> roles = new HashSet<>();
 
-        Role userRole;
-        if(stringRoles == null){
-            userRole = roleRepository.findByRoleName(RoleEnum.ROLE_TRANSPORT_COMPANY).
-                    orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-        }else {
-            userRole = roleRepository.findByRoleName(RoleEnum.ROLE_USER)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
+        Role userRole = new Role();
+
+        //        if(stringRoles != null){
+//            userRole = roleRepository.findByRoleName(RoleEnum.ROLE_TRANSPORT_COMPANY).
+//                    orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+//        }else {
+//            userRole = roleRepository.findByRoleName(RoleEnum.ROLE_USER)
+//                    .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
+//        }
+        if(userRole.setRoleName(RoleEnum.ROLE_TRANSPORT_COMPANY)){
+            roles.add(userRole);
         }
-        roles.add(userRole);
+
 
         user.setRoles(roles);
         userRepository.save(user);
@@ -198,31 +202,31 @@ public class AuthController {
 
     }
 
-    @PostMapping("/fuel_station_signup")
-    public ResponseEntity<?> registerFuelStation(@Valid @RequestBody SignupRequest signupRequest) {
-        if(userRepository.existsByEmail(signupRequest.getEmail())){
-            return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already existing in our system, try to login instead!"));
-        }
-
-        User user = new User(signupRequest.getUsername(), signupRequest.getEmail(), passwordEncoder.encode(signupRequest.getPassword()));
-
-        Set<String> stringRoles = signupRequest.getRole();
-        Set<Role> roles = new HashSet<>();
-
-        Role userRole;
-        if(stringRoles == null){
-            userRole = roleRepository.findByRoleName(RoleEnum.ROLE_FUEL_STATION).
-                    orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-        }else {
-            userRole = roleRepository.findByRoleName(RoleEnum.ROLE_USER)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
-        }
-        roles.add(userRole);
-
-        user.setRoles(roles);
-        userRepository.save(user);
-
-        return ResponseEntity.ok(new MessageResponse("User registered successfully"));
-
-    }
+//    @PostMapping("/fuel_station_signup")
+//    public ResponseEntity<?> registerFuelStation(@Valid @RequestBody SignupRequest signupRequest) {
+//        if(userRepository.existsByEmail(signupRequest.getEmail())){
+//            return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already existing in our system, try to login instead!"));
+//        }
+//
+//        User user = new User(signupRequest.getUsername(), signupRequest.getEmail(), passwordEncoder.encode(signupRequest.getPassword()));
+//
+//        Set<String> stringRoles = signupRequest.getRole();
+//        Set<Role> roles = new HashSet<>();
+//
+//        Role userRole;
+//        if(stringRoles == null){
+//            userRole = roleRepository.findByRoleName(RoleEnum.ROLE_FUEL_STATION).
+//                    orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+//        }else {
+//            userRole = roleRepository.findByRoleName(RoleEnum.ROLE_USER)
+//                    .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
+//        }
+//        roles.add(userRole);
+//
+//        user.setRoles(roles);
+//        userRepository.save(user);
+//
+//        return ResponseEntity.ok(new MessageResponse("User registered successfully"));
+//
+//    }
 }

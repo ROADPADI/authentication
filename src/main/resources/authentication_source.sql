@@ -1,9 +1,9 @@
-DROP USER IF EXISTS 'tegadb'@'localhost';
+DROP USER IF EXISTS root@'localhost';
 
-CREATE USER IF NOT EXISTS 'tegadb'@'localhost'
+CREATE USER IF NOT EXISTS 'root'@'localhost'
 
-    IDENTIFIED BY 'roadpadi_authentication';
+    IDENTIFIED BY 'Thethingdonefinallywork4321@';
 
-GRANT ALL PRIVILEGES ON * TO 'tegadb'@'localhost';
+GRANT ALL PRIVILEGES ON * TO 'root'@'localhost';
 
 FLUSH PRIVILEGES;
