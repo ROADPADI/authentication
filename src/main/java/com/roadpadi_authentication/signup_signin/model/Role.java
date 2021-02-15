@@ -3,7 +3,7 @@ package com.roadpadi_authentication.signup_signin.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "roles", schema = "authentication_schema", catalog = "")
 public class Role {
 
     @Id

@@ -171,7 +171,7 @@ public class AuthController {
 
 
     @PostMapping("/transport_company_signup")
-    public ResponseEntity<?> registerTransportCompany(@Valid @RequestBody @NotNull SignupRequest signupRequest) {
+    public ResponseEntity<?> registerTransportCompany(@Valid @RequestBody SignupRequest signupRequest) {
         if(userRepository.existsByEmail(signupRequest.getEmail())){
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already existing in our system, try to login instead!"));
         }
