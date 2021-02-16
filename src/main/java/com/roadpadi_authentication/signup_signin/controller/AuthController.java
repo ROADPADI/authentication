@@ -77,95 +77,95 @@ public class AuthController {
         Set<String> stringRoles = signupRequest.getRole();
         Set<Role> roles = new HashSet<>();
 
-        if(stringRoles == null){
-            Role userRole = roleRepository.findByRoleName(RoleEnum.ROLE_CUSTOMER).
-                    orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(userRole);
-        }else {
-            stringRoles.forEach(role -> {
-                switch (role){
-                    case "transportCompanyMainAdmin":
-                        Role transportCompanyMainAdminRole = roleRepository.findByRoleName(RoleEnum.ROLE_TRANSPORT_COMPANY)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
-                        roles.add(transportCompanyMainAdminRole);
-
-                        break;
-
-                    case "transportCompanyTerminalManager":
-                        Role transportCompanyTerminalManagerRole = roleRepository.findByRoleName(RoleEnum.ROLE_TRANSPORT_COMPANY_TERMINAL_MANAGER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
-                        roles.add(transportCompanyTerminalManagerRole);
-
-                        break;
-
-                    case "transportCompanyBookingAdmin":
-                        Role transportCompanyBookingAdminRole = roleRepository.findByRoleName(RoleEnum.ROLE_TRANSPORT_COMPANY_BOOKING_ADMIN)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
-                        roles.add(transportCompanyBookingAdminRole);
-
-                        break;
-
-                    case "transportCompanyDriver":
-                        Role transportCompanyDriverRole = roleRepository.findByRoleName(RoleEnum.ROLE_TRANSPORT_COMPANY_DRIVER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
-                        roles.add(transportCompanyDriverRole);
-
-                        break;
-
-                    case "otherCompany":
-                        Role otherCompanyRole = roleRepository.findByRoleName(RoleEnum.ROLE_OTHER_COMPANY)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
-                        roles.add(otherCompanyRole);
-
-                        break;
-
-                    case "customerHelper":
-                        Role customerHelperRole = roleRepository.findByRoleName(RoleEnum.ROLE_CUSTOMER_HELPER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
-                        roles.add(customerHelperRole);
-
-                        break;
-
-                    case "fuelStationMainAdmin":
-                        Role fuelStationMainRole = roleRepository.findByRoleName(RoleEnum.ROLE_FUEL_STATION)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
-                        roles.add(fuelStationMainRole);
-
-                        break;
-
-                    case "fuelStationManager":
-                        Role fuelStationManagerRole = roleRepository.findByRoleName(RoleEnum.ROLE_FUEL_STATION_MANAGER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
-                        roles.add(fuelStationManagerRole);
-
-                        break;
-
-                    case "fuelStationAttendant":
-                        Role fuelStationAttendantRole = roleRepository.findByRoleName(RoleEnum.ROLE_FUEL_STATION_ATTENDANT)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
-                        roles.add(fuelStationAttendantRole);
-
-                        break;
-
-                    case "roadpadiSuperAdmin":
-                        Role roadpadiSuperAdminRole = roleRepository.findByRoleName(RoleEnum.ROLE_SUPER_ADMIN)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
-                        roles.add(roadpadiSuperAdminRole);
-
-                        break;
-
-                    default:
-                        Role userRole = roleRepository.findByRoleName(RoleEnum.ROLE_USER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
-                        roles.add(userRole);
-                }
-            });
-        }
+//        if(stringRoles == null){
+//            Role userRole = roleRepository.findByRoleName(RoleEnum.ROLE_CUSTOMER).
+//                    orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+//            roles.add(userRole);
+//        }else {
+//            stringRoles.forEach(role -> {
+//                switch (role){
+//                    case "transportCompanyMainAdmin":
+//                        Role transportCompanyMainAdminRole = roleRepository.findByRoleName(RoleEnum.ROLE_TRANSPORT_COMPANY)
+//                                .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
+//                        roles.add(transportCompanyMainAdminRole);
+//
+//                        break;
+//
+//                    case "transportCompanyTerminalManager":
+//                        Role transportCompanyTerminalManagerRole = roleRepository.findByRoleName(RoleEnum.ROLE_TRANSPORT_COMPANY_TERMINAL_MANAGER)
+//                                .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
+//                        roles.add(transportCompanyTerminalManagerRole);
+//
+//                        break;
+//
+//                    case "transportCompanyBookingAdmin":
+//                        Role transportCompanyBookingAdminRole = roleRepository.findByRoleName(RoleEnum.ROLE_TRANSPORT_COMPANY_BOOKING_ADMIN)
+//                                .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
+//                        roles.add(transportCompanyBookingAdminRole);
+//
+//                        break;
+//
+//                    case "transportCompanyDriver":
+//                        Role transportCompanyDriverRole = roleRepository.findByRoleName(RoleEnum.ROLE_TRANSPORT_COMPANY_DRIVER)
+//                                .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
+//                        roles.add(transportCompanyDriverRole);
+//
+//                        break;
+//
+//                    case "otherCompany":
+//                        Role otherCompanyRole = roleRepository.findByRoleName(RoleEnum.ROLE_OTHER_COMPANY)
+//                                .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
+//                        roles.add(otherCompanyRole);
+//
+//                        break;
+//
+//                    case "customerHelper":
+//                        Role customerHelperRole = roleRepository.findByRoleName(RoleEnum.ROLE_CUSTOMER_HELPER)
+//                                .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
+//                        roles.add(customerHelperRole);
+//
+//                        break;
+//
+//                    case "fuelStationMainAdmin":
+//                        Role fuelStationMainRole = roleRepository.findByRoleName(RoleEnum.ROLE_FUEL_STATION)
+//                                .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
+//                        roles.add(fuelStationMainRole);
+//
+//                        break;
+//
+//                    case "fuelStationManager":
+//                        Role fuelStationManagerRole = roleRepository.findByRoleName(RoleEnum.ROLE_FUEL_STATION_MANAGER)
+//                                .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
+//                        roles.add(fuelStationManagerRole);
+//
+//                        break;
+//
+//                    case "fuelStationAttendant":
+//                        Role fuelStationAttendantRole = roleRepository.findByRoleName(RoleEnum.ROLE_FUEL_STATION_ATTENDANT)
+//                                .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
+//                        roles.add(fuelStationAttendantRole);
+//
+//                        break;
+//
+//                    case "roadpadiSuperAdmin":
+//                        Role roadpadiSuperAdminRole = roleRepository.findByRoleName(RoleEnum.ROLE_SUPER_ADMIN)
+//                                .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
+//                        roles.add(roadpadiSuperAdminRole);
+//
+//                        break;
+//
+//                    default:
+//                        Role userRole = roleRepository.findByRoleName(RoleEnum.ROLE_USER)
+//                                .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
+//                        roles.add(userRole);
+//                }
+//            });
+//        }
 
         user.setRoles(roles);
         userRepository.save(user);
 
-        return ResponseEntity.ok(new MessageResponse("User registered successfully"));
+        return ResponseEntity.ok(new MessageResponse("User registered successfully" + "role: " + roles ));
 
     }
 
